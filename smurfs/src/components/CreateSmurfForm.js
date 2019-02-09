@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { connect } from "react-redux";
+import { addSmurf } from '../actions';
 
 export const MainFormDiv = styled.div`
   width: 500px;
@@ -94,16 +95,16 @@ class CreateSmurfForm extends React.Component{
     let newSmurfData = {
       name: this.state.smurfData.name,
       age: Number(this.state.smurfData.age),
-      email: this.state.smurfData.email
+      height: this.state.smurfData.height
     }
 
-    if (!this.state.smurfData.name || !this.state.smurfData.age || !this.state.smurfData.email)
+    if (!this.state.smurfData.name || !this.state.smurfData.age || !this.state.smurfData.height)
       return this.setState({error: "Please complete all the fields."})
-      // post smurf method here
+    this.props.addSmurf(newSmurfData)
     this.setState({
       smurfData: {
         name: '',
-        email: '',
+        height: '',
         age: '',
       },
       error: ''
@@ -115,7 +116,7 @@ class CreateSmurfForm extends React.Component{
     return (
       <MainFormDiv>
         <FormTitle>POST (add) a new smurf</FormTitle>
-        <form>
+        <form onSubmit = {this.addSmurf}>
           <FormInput
             type="text"
             name="name"
@@ -125,10 +126,10 @@ class CreateSmurfForm extends React.Component{
           />
           <FormInput
             type="text"
-            name="email"
-            placeholder="Email"
+            name="height"
+            placeholder="Height"
             onChange={this.handleChange}
-            value={this.state.smurfData.email}
+            value={this.state.smurfData.height}
           />
           <FormInput
             type="text"
@@ -152,4 +153,4 @@ class CreateSmurfForm extends React.Component{
 }
 
 
-export default connect(null)(CreateSmurfForm);
+export default connect(null, { addSmurf })(CreateSmurfForm);

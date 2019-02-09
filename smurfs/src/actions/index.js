@@ -4,7 +4,8 @@ import axios from 'axios';
   Be sure to export each action type so you can pull it into your reducer
 */
 export const FETCHING_SMURFS = "FETCHING_SMURFS";
-export const SMURFS_FETCHED = "SMURFS_FETCHED"
+export const SMURFS_FETCHED = "SMURFS_FETCHED";
+export const SMURF_ADDED = "SMURF_ADDED";
 export const ADDING_SMURF = "ADDING_SMURF";
 export const ERROR = "ERROR";
 
@@ -33,6 +34,26 @@ export function getSmurfs(){
         dispatch({
           type: ERROR,
           payload: "Unable to retrive smurfs"
+        });
+      });
+  };
+};
+
+export function addSmurf(smurf){
+  return dispatch => {
+    dispatch({type: ADDING_SMURF });
+    axios
+      .post("http://localhost:3333/smurfs", smurf)
+      .then(response => {
+        dispatch({
+          type: SMURF_ADDED,
+          payload: response.data
+        })
+      })
+      .catch(error => {
+        dispatch({
+          type: ERROR,
+          payload: "Unable to add Smurf"
         });
       });
   };
