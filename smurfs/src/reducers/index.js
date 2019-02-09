@@ -1,4 +1,4 @@
-import { FETCHING_SMURFS, SMURFS_FETCHED, ADDING_SMURF, SMURF_ADDED, ERROR } from "../actions/";
+import { FETCHING_SMURFS, SMURFS_FETCHED, ADDING_SMURF, SMURF_ADDED, DELETING_SMURF, SMURF_DELETED, ERROR } from "../actions/";
 
 const initialState = {
   smurfs: [],
@@ -26,6 +26,7 @@ export default function rootReducer(state = initialState, action){
     case SMURFS_FETCHED:
       return {
         ...state,
+        fetchingSmurfs: false,
         smurfs: action.payload,
       };
     case ADDING_SMURF:
@@ -37,6 +38,20 @@ export default function rootReducer(state = initialState, action){
     case SMURF_ADDED:
       return {
         ...state,
+        addingSmurf: false,
+        smurfs: action.payload
+      }
+
+    case DELETING_SMURF:
+      return{
+        ...state,
+        deletingSmurf: true
+      }
+
+    case SMURF_DELETED:
+      return{
+        ...state,
+        deletingSmurf: false,
         smurfs: action.payload
       }
 
