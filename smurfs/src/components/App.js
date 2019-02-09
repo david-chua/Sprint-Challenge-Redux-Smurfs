@@ -3,9 +3,9 @@ import './App.css';
 
 import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { getSmurfs } from '../actions';
 
 import SmurfsList from './SmurfsList';
+import CreateSmurfForm from './CreateSmurfForm';
 /*
  to wire this component up you're going to need a few things.
  I'll let you do this part on your own.
@@ -19,6 +19,9 @@ class App extends Component {
         <Route
           exact path='/'
           component ={ SmurfsList} />
+        <Route
+          path="/post"
+          component= { CreateSmurfForm } />
       </div>
     );
   }
@@ -26,4 +29,4 @@ class App extends Component {
 
 
 
-export default connect(null)(App);
+export default withRouter(connect(null)(App));

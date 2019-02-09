@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
 import { getSmurfs } from '../actions';
 
@@ -15,7 +14,7 @@ class SmurfsList extends React.Component{
       <div>
       <h1> Smurfs List </h1>
       { this.props.smurfs.map(smurf => {
-        return <Smurf name={smurf.name} height={smurf.height } age= {smurf.age} />
+        return <Smurf id = {smurf.id} name={smurf.name} height={smurf.height } age= {smurf.age} />
       })}
       </div>
     );
