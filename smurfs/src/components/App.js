@@ -5,6 +5,7 @@ import { Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import SmurfsList from './SmurfsList';
+import Smurf from './Smurf';
 import Navigation from './Navigation';
 import CreateSmurfForm from './CreateSmurfForm';
 /*
@@ -14,6 +15,7 @@ import CreateSmurfForm from './CreateSmurfForm';
  `How do I ensure that my component links the state to props?`
  */
 class App extends Component {
+
   render() {
     return (
       <div className="App">
@@ -24,11 +26,25 @@ class App extends Component {
         <Route
           path="/post"
           component= { CreateSmurfForm } />
+        <Route
+          exact path="/smurfs/:id"
+          render={(props) => <Smurf
+          { ...props }
+          smurfs = {this.props.smurfs}/>}
+        />
       </div>
+
     );
   }
 }
 
+const mapStateToProps = function(state){
+  return{
+    smurfs: state.smurfs
+  }
+
+}
 
 
-export default withRouter(connect(null)(App));
+
+export default withRouter(connect(mapStateToProps)(App));
