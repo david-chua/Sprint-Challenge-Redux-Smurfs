@@ -4,7 +4,9 @@ import axios from 'axios';
   Be sure to export each action type so you can pull it into your reducer
 */
 export const FETCHING_SMURFS = "FETCHING_SMURFS";
+export const SMURFS_FETCHED = "SMURFS_FETCHED"
 export const ADDING_SMURF = "ADDING_SMURF";
+export const ERROR = "ERROR";
 
 /*
   For this project you'll need at least 2 action creators for the main portion,
@@ -16,3 +18,22 @@ export const ADDING_SMURF = "ADDING_SMURF";
    U - updateSmurf
    D - deleteSmurf
 */
+export function getSmurfs(){
+  return dispatch => {
+    dispatch({type: FETCHING_SMURFS});
+    axios
+      .get("http://localhost:3333/smurfs")
+      .then(response => {
+        dispatch({
+          type: SMURFS_FETCHED,
+          payload: response.data
+        })
+      })
+      .catch(error => {
+        dispatch({
+          type: ERROR,
+          payload: "Unable to retrive smurfs"
+        });
+      });
+  };
+};

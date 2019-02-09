@@ -1,18 +1,4 @@
-/*
-  Be sure to import in all of the action types from `../actions`
-*/
-import { FETCHING_SMURFS, ADDING_SMURF } from "../actions/";
-/*
- Your initial/default state for this project could *Although does not have to* look a lot like this
- {
-   smurfs: [],
-   fetchingSmurfs: false
-   addingSmurf: false
-   updatingSmurf: false
-   deletingSmurf: false
-   error: null
- }
-*/
+import { FETCHING_SMURFS, SMURFS_FETCHED, ADDING_SMURF, ERROR } from "../actions/";
 
 const initialState = {
   smurfs: [],
@@ -31,5 +17,27 @@ const initialState = {
   Components can then read your store as, `state` and not `state.fooReducer`.
 */
 export default function rootReducer(state = initialState, action){
-  return state;
+  switch(action.type){
+    case FETCHING_SMURFS:
+      return {
+        ...state,
+        fetchingSmurfs: true,
+        addingSmurf: false,
+        updatingSmurf: false,
+        deletingSmurf: false,
+        error: null
+      };
+    case SMURFS_FETCHED:
+      return {
+        ...state,
+        smurfs: action.payload,
+        fetchingSmurfs: false,
+        addingSmurf: false,
+        updatingSmurf: false,
+        deletingSmurf: false,
+        error: null
+      };
+    default:
+      return state;
+  }
 }
